@@ -11,11 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Fullscreen"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".DriverLogin">
-
-        </activity>
+        <activity android:name=".customer_login"></activity>
+        <activity android:name=".DriverLogin"></activity>
         <activity android:name=".MainActivity">
-            <!--android:theme="@style/AppTheme.Fullscreen"-->
+
+            <!-- android:theme="@style/AppTheme.Fullscreen" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
