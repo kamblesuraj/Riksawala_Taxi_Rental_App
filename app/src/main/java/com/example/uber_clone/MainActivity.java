@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     Button cust_btn;
     Button driver_btn;
-    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         cust_btn = findViewById(R.id.customer_btn);
         driver_btn = findViewById(R.id.driver_btn);
-        mAuth = FirebaseAuth.getInstance();
+
 
         driver_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
     void open_driver_screen()
     {
-        Intent intent = new Intent(getApplicationContext(),DriverLogin.class);
+        Intent intent = new Intent(MainActivity.this,DriverLogin.class);
         startActivity(intent);
 
     }
     void open_customer_screen()
     {
-        Intent intent = new Intent(getApplicationContext(),customer_login.class);
+        Intent intent = new Intent(MainActivity.this,customer_login.class);
         startActivity(intent);
 
     }
