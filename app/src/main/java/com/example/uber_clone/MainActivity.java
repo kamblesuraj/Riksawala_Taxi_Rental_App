@@ -1,18 +1,14 @@
 package com.example.uber_clone;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 public class MainActivity extends AppCompatActivity {
-    Button cust_btn;
-    Button driver_btn;
+   private Button cust_btn;
+  private   Button driver_btn;
 
 
     @Override
@@ -44,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void open_driver_screen()
+   private  void open_driver_screen()
     {
         Intent intent = new Intent(MainActivity.this,DriverLogin.class);
         startActivity(intent);
 
     }
-    void open_customer_screen()
+    private void open_customer_screen()
     {
         Intent intent = new Intent(MainActivity.this,customer_login.class);
         startActivity(intent);

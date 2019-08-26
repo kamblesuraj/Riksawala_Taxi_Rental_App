@@ -1,25 +1,39 @@
 package com.example.uber_clone;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+
+import android.content.res.Resources;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
+public class Map_Driver extends FragmentActivity implements OnMapReadyCallback , GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleMap mMap;
-    private FirebaseAuth mAuth;
+    GoogleApiClient googleApiClient;
+    Location mLastlocation;
+    LocationRequest mLocationRequest;
+//    private FirebaseAuth mAuth;
 
     Button logout_btn;
 
@@ -29,7 +43,7 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         setContentView(R.layout.activity_map__driver);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
         logout_btn = findViewById(R.id.logout_btn);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -39,8 +53,9 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                mAuth = FirebaseAuth.getInstance();
-
+                Intent intent = new Intent(Map_Driver.this,DriverLogin.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -61,13 +76,67 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng cur_loc = new LatLng(12.971599, 77.594566);
+        mMap.addMarker(new MarkerOptions().position(cur_loc).title("Namma Bangaluru77"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(cur_loc));
+
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_json));
+
+            if (!success) {
+                Toast.makeText(Map_Driver.this,"error loading json",Toast.LENGTH_SHORT).show();
+            }
+        } catch (Resources.NotFoundException e) {
+            Toast.makeText(Map_Driver.this," "+e,Toast.LENGTH_SHORT).show();
+        }
+        // Position the map's camera near Sydney, Australia.
+
     }
+
+
+
 
     @Override
     public void onBackPressed() {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 }
