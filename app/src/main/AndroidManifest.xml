@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Fullscreen"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Register_driver"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,8 +39,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

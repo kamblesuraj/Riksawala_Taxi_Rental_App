@@ -119,25 +119,25 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
 
                     LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(7));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
 
                     String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     DatabaseReference refAvailable = FirebaseDatabase.getInstance().getReference("driversAvailable");
                     DatabaseReference refWorking = FirebaseDatabase.getInstance().getReference("driversWorking");
-                    GeoFire geoFireAvailable = new GeoFire(refAvailable);
-                    GeoFire geoFireWorking = new GeoFire(refWorking);
-
-                    switch (customerId){
-                        case "":
-                            geoFireWorking.removeLocation(userId);
-                            geoFireAvailable.setLocation(userId, new GeoLocation(location.getLatitude(), location.getLongitude()));
-                            break;
-
-                        default:
-                            geoFireAvailable.removeLocation(userId);
-                            geoFireWorking.setLocation(userId, new GeoLocation(location.getLatitude(), location.getLongitude()));
-                            break;
-                    }
+//                    GeoFire geoFireAvailable = new GeoFire(refAvailable);
+//                    GeoFire geoFireWorking = new GeoFire(refWorking);
+//
+//                    switch (customerId){
+//                        case "":
+//                            geoFireWorking.removeLocation(userId);
+//                            geoFireAvailable.setLocation(userId, new GeoLocation(location.getLatitude(), location.getLongitude()));
+//                            break;
+//
+//                        default:
+//                            geoFireAvailable.removeLocation(userId);
+//                            geoFireWorking.setLocation(userId, new GeoLocation(location.getLatitude(), location.getLongitude()));
+//                            break;
+//                    }
                 }
             }
         }
