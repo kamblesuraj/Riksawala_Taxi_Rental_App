@@ -1,5 +1,4 @@
 package com.example.uber_clone;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,12 +16,16 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.uber_clone.DriverLogin;
+import com.example.uber_clone.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -49,9 +52,9 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-  private   Location mLastLocation;
-   private  LocationRequest mLocationRequest;
-   private  FusedLocationProviderClient mFusedLocationClient;
+    private   Location mLastLocation;
+    private  LocationRequest mLocationRequest;
+    private  FusedLocationProviderClient mFusedLocationClient;
 
     private int status = 0;
 
@@ -67,13 +70,13 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map__driver);
-        customerId =  FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Map_Driver.this);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         logout_btn = findViewById(R.id.logout_btn);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(Map_Driver.this);
+        mapFragment.getMapAsync(this);
 
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,10 +88,11 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
             }
         });
 
+
+
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         mMap = googleMap;
 
         mLocationRequest = new LocationRequest();
@@ -96,25 +100,25 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-//        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                checkLocationPermission();
+        if(VERSION.SDK_INT >= VERSION_CODES.M){
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
             }else{
-//                checkLocationPermission();
+                checkLocationPermission();
             }
         }
-
+    }
 
 
     LocationCallback mLocationCallback = new LocationCallback(){
         @Override
         public void onLocationResult(LocationResult locationResult) {
             for(Location location : locationResult.getLocations()){
-//                if(getApplicationContext()!=null){
+                if(getApplicationContext()!=null){
 
-                    if(customerId !=null && mLastLocation!=null && location != null){
-                        rideDistance += mLastLocation.distanceTo(location)/1000;
-                    }
+//                    if(!customerId.equals("") && mLastLocation!=null && location != null){
+//                        rideDistance += mLastLocation.distanceTo(location)/1000;
+//                    }
                     mLastLocation = location;
 
 
@@ -122,10 +126,33 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
 
+//                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                    DatabaseReference refAvailable = FirebaseDatabase.getInstance().getReference("driversAvailable");
+//                    DatabaseReference refWorking = FirebaseDatabase.getInstance().getReference("driversWorking");
+//                    GeoFire geoFireAvailable = new GeoFire(refAvailable);
+//                    GeoFire geoFireWorking = new GeoFire(refWorking);
+//
+//                    switch (customerId){
+//                        case "":
+//                            geoFireWorking.removeLocation(userId);
+//                            geoFireAvailable.setLocation(userId, new GeoLocation(location.getLatitude(), location.getLongitude()));
+//                            break;
+//
+//                        default:
+//                            geoFireAvailable.removeLocation(userId);
+//                            geoFireWorking.setLocation(userId, new GeoLocation(location.getLatitude(), location.getLongitude()));
+//                            break;
+//                    }
                 }
             }
-//        }
+        }
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
     private void checkLocationPermission() {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
@@ -167,6 +194,5 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     }
 
 
+
 }
-
-
