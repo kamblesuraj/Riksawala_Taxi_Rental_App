@@ -31,6 +31,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,12 +45,6 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     private Location mLastLocation;
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
-
-    private int status = 0;
-
-    private String customerId = "", destination;
-    private LatLng destinationLatLng, pickupLatLng;
-    private float rideDistance;
 
 
     Button logout_btn;
@@ -78,62 +73,68 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         });
 
 
-
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        mLocationRequest = new LocationRequest();
+//        mLocationRequest.setInterval(1000);
+//        mLocationRequest.setFastestInterval(1000);
+//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            checkLocationPermission();
+        } else {
 
-            } else {
-                checkLocationPermission();
-            }
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+
+                            }
+                        }
+                    });
+
         }
     }
 
 
-    LocationCallback mLocationCallback = new LocationCallback() {
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            for (Location location : locationResult.getLocations()) {
-                if (getApplicationContext() != null) {
+//        LocationCallback mLocationCallback = new LocationCallback() {
+//            @Override
+//            public void onLocationResult(LocationResult locationResult) {
+//                for (Location location : locationResult.getLocations()) {
+//                    if (getApplicationContext() != null) {
+//
+//
+//                        mLastLocation = location;
+//
+//
+//                        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//                        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+//
+//
+//                    }
+//                }
+//            }
+//        };
 
+//    SupportMapFragment mapFragment;
 
-                    mLastLocation = location;
-
-
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
-
-                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    DatabaseReference refAvailable = FirebaseDatabase.getInstance().getReference("driversAvailable");
-                    DatabaseReference refWorking = FirebaseDatabase.getInstance().getReference("driversWorking");
-
-
-                }
-            }
-        }
-    };
-
-    SupportMapFragment mapFragment;
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        Objects.requireNonNull(mapFragment).getMapAsync(this);
-
-    }
-
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.map);
+//        Objects.requireNonNull(mapFragment).getMapAsync(this);
+//
+//    }
 
 
     private void checkLocationPermission() {
@@ -157,7 +158,6 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -165,7 +165,7 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
             case 1: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+//                        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
                         mMap.setMyLocationEnabled(true);
                     }
                 } else {
