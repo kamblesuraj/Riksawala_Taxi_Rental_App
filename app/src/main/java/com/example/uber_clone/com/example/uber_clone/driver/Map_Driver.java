@@ -43,8 +43,10 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     private Location mLastLocation;
-    private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
+    LocationRequest mLocationRequest;
+
+    private SupportMapFragment mapFragment;
 
 
     Button logout_btn;
@@ -55,6 +57,9 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         setContentView(R.layout.activity_map__driver);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.driver_map);
+        mapFragment.getMapAsync(this);
 
         logout_btn = findViewById(R.id.logout_btn);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -79,51 +84,51 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-//        mLocationRequest = new LocationRequest();
-//        mLocationRequest.setInterval(1000);
-//        mLocationRequest.setFastestInterval(1000);
-//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            checkLocationPermission();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
         } else {
-
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                                mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
-
-                            }
-                        }
-                    });
+            checkLocationPermission();
+//            mFusedLocationClient.getLastLocation()
+//                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//                        @Override
+//                        public void onSuccess(Location location) {
+//                            if (location != null) {
+//                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                                mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+//
+//                            }
+//                        }
+//                    });
 
         }
     }
 
 
-//        LocationCallback mLocationCallback = new LocationCallback() {
-//            @Override
-//            public void onLocationResult(LocationResult locationResult) {
-//                for (Location location : locationResult.getLocations()) {
-//                    if (getApplicationContext() != null) {
-//
-//
-//                        mLastLocation = location;
-//
-//
-//                        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//                        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//                        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
-//
-//
-//                    }
-//                }
-//            }
-//        };
+    LocationCallback mLocationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            for (Location location : locationResult.getLocations()) {
+                if (getApplicationContext() != null) {
+
+
+                    mLastLocation = location;
+
+
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+
+
+                }
+            }
+        }
+    };
 
 //    SupportMapFragment mapFragment;
 
@@ -165,7 +170,7 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
             case 1: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//                        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+                        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
                         mMap.setMyLocationEnabled(true);
                     }
                 } else {
