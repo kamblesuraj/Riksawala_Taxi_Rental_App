@@ -56,7 +56,6 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-       
 
         logout_btn = findViewById(R.id.logout_btn);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -84,40 +83,22 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
         } else {
             checkLocationPermission();
 
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                                mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
-
-                            }
-                        }
-                    });
-
         }
     }
-
 
     LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
             for (Location location : locationResult.getLocations()) {
-                if (getApplicationContext() != null) {
-
-
+                if (location != null) {
                     mLastLocation = location;
-
-
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
@@ -127,17 +108,6 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
             }
         }
     };
-
-//    SupportMapFragment mapFragment;
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        Objects.requireNonNull(mapFragment).getMapAsync(this);
-//
-//    }
 
 
     private void checkLocationPermission() {
@@ -162,7 +132,8 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
