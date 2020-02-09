@@ -46,8 +46,6 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     private FusedLocationProviderClient mFusedLocationClient;
     LocationRequest mLocationRequest;
 
-    private SupportMapFragment mapFragment;
-
 
     Button logout_btn;
 
@@ -58,8 +56,7 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.driver_map);
-        mapFragment.getMapAsync(this);
+       
 
         logout_btn = findViewById(R.id.logout_btn);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

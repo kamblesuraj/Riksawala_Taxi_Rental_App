@@ -21,10 +21,17 @@
         android:id="@+id/logout_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#FF5722"
         android:padding="8dp"
         android:text="LogOut"
-        android:textColor="#ffffff" />
+        android:textColor="#FC181717"
+        android:textColorHighlight="#F8093AEC"
+        android:textColorHint="#F80B5BE6"
+        android:textColorLink="#F7E90909" />
 
 
 </RelativeLayout>
