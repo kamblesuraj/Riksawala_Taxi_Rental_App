@@ -1,4 +1,4 @@
-package com.example.uber_clone.com.example.uber_clone.customer;
+package com.example.uber_clone.com.example.UberClone.customer;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.uber_clone.R;
-import com.example.uber_clone.com.example.uber_clone.driver.Map_Driver;
+import com.example.uber_clone.com.example.UberClone.driver.Map_Driver;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

@@ -22,11 +22,11 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
-            android:name=".com.example.uber_clone.driver.Map_Driver"
+            android:name=".com.example.UberClone.driver.Map_Driver"
             android:label="@string/title_activity_map__driver" />
-        <activity android:name=".com.example.uber_clone.customer.customer_login" />
-        <activity android:name=".com.example.uber_clone.driver.DriverLogin" />
-        <activity android:name=".com.example.uber_clone.Main_Handler.MainActivity">
+        <activity android:name=".com.example.UberClone.customer.customer_login" />
+        <activity android:name=".com.example.UberClone.driver.DriverLogin" />
+        <activity android:name=".com.example.UberClone.Main_Handler.MainActivity">
 
             <!-- android:theme="@style/AppTheme.Fullscreen" -->
             <intent-filter>

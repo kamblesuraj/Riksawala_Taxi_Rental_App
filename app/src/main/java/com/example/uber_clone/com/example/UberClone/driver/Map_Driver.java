@@ -1,4 +1,4 @@
-package com.example.uber_clone.com.example.uber_clone.driver;
+package com.example.uber_clone.com.example.UberClone.driver;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -12,8 +12,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -31,10 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -85,7 +80,7 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
         } else {
             checkLocationPermission();
@@ -144,6 +139,7 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
             } else {
                 Toast.makeText(getApplicationContext(), "Please provide the permission", Toast.LENGTH_LONG).show();
             }
+
         }
     }
 

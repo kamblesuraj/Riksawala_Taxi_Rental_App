@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".com.example.uber_clone.Main_Handler.MainActivity">
+    tools:context=".com.example.UberClone.Main_Handler.MainActivity">
 
 
 

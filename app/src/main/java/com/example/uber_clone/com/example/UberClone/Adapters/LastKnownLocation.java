@@ -1,12 +1,9 @@
-package com.example.uber_clone.com.example.uber_clone.Adapters;
+package com.example.uber_clone.com.example.UberClone.Adapters;
 
 import android.location.Location;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 public class LastKnownLocation {
     private Location mLastLocation;

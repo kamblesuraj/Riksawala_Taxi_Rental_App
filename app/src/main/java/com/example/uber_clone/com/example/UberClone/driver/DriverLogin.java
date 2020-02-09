@@ -1,4 +1,4 @@
-package com.example.uber_clone.com.example.uber_clone.driver;
+package com.example.uber_clone.com.example.UberClone.driver;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;

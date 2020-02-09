@@ -1,4 +1,4 @@
-package com.example.uber_clone.com.example.uber_clone.Main_Handler;
+package com.example.uber_clone.com.example.UberClone.Main_Handler;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.uber_clone.R;
-import com.example.uber_clone.com.example.uber_clone.customer.customer_login;
-import com.example.uber_clone.com.example.uber_clone.driver.DriverLogin;
+import com.example.uber_clone.com.example.UberClone.customer.customer_login;
+import com.example.uber_clone.com.example.UberClone.driver.DriverLogin;
 
 public class MainActivity extends AppCompatActivity {
    private Button cust_btn;
