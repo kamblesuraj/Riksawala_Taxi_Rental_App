@@ -96,8 +96,11 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
                     mLastLocation = location;
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+                    float Accuracy= location.getAccuracy();
+                    float speed = location.getSpeed();
+                    Toast.makeText(Map_Driver.this, "Accuracy is :"+Accuracy,Toast.LENGTH_LONG).show();
+                    Toast.makeText(Map_Driver.this, "Speed is :"+speed,Toast.LENGTH_LONG).show();
 
                 }
             }
