@@ -33,7 +33,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
+public class Map_Driver extends FragmentActivity implements OnMapReadyCallback
+{
 
     private GoogleMap mMap;
 
@@ -45,7 +46,8 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     Button logout_btn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map__driver);
 
@@ -58,9 +60,11 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         assert mapFragment != null;
         Objects.requireNonNull(mapFragment).getMapAsync(this);
 
-        logout_btn.setOnClickListener(new View.OnClickListener() {
+        logout_btn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(Map_Driver.this, DriverLogin.class);
                 startActivity(intent);
@@ -72,7 +76,8 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         mMap = googleMap;
 
         mLocationRequest = new LocationRequest();
@@ -80,27 +85,31 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
 
-        } else {
+        }
+        else {
             checkLocationPermission();
 
         }
     }
 
-    LocationCallback mLocationCallback = new LocationCallback() {
+    LocationCallback mLocationCallback = new LocationCallback()
+    {
         @Override
-        public void onLocationResult(LocationResult locationResult) {
-            for (Location location : locationResult.getLocations()) {
-                if (location != null) {
+        public void onLocationResult(LocationResult locationResult)
+        {
+            for (Location location : locationResult.getLocations())
+            {
+                if (location != null)
+                {
                     mLastLocation = location;
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
-                    float Accuracy= location.getAccuracy();
-                    float speed = location.getSpeed();
-                    Toast.makeText(Map_Driver.this, "Accuracy is :"+Accuracy,Toast.LENGTH_LONG).show();
-                    Toast.makeText(Map_Driver.this, "Speed is :"+speed,Toast.LENGTH_LONG).show();
+
+                    GetSpeedAndAccuracy(location);
 
                 }
             }
@@ -108,7 +117,8 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     };
 
 
-    private void checkLocationPermission() {
+    private void checkLocationPermission()
+    {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 new AlertDialog.Builder(this)
@@ -122,7 +132,8 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
                         })
                         .create()
                         .show();
-            } else {
+            } else
+                {
                 ActivityCompat.requestPermissions(Map_Driver.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
@@ -133,17 +144,32 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 1)
+        {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                {
                     mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
                     mMap.setMyLocationEnabled(true);
                 }
-            } else {
+            }
+            else
+                {
                 Toast.makeText(getApplicationContext(), "Please provide the permission", Toast.LENGTH_LONG).show();
             }
 
         }
+    }
+
+    private void GetSpeedAndAccuracy(Location location)
+    {
+        float Accuracy = location.getAccuracy();
+        float speed = location.getSpeed();
+
+        Toast.makeText(Map_Driver.this, "Accuracy is :" + Accuracy, Toast.LENGTH_SHORT).show();
+        Toast.makeText(Map_Driver.this, "Speed is :" + speed, Toast.LENGTH_SHORT).show();
+
     }
 
 

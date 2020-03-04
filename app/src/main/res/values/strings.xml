@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RikshaWala</string>
     <string name="title_activity_map__driver">Map</string>
+    <string name="title_activity_map__customer">Map</string>
 </resources>
