@@ -8,6 +8,4 @@
  4. Google Maps API Key.
  
  # Setup
-     1. clone   ```javascript
-https://github.com/surajkamblesk/Riksawala_Taxi_Rental_App.git
-```
+ 1. Clone Repo *https://github.com/surajkamblesk/Riksawala_Taxi_Rental_App.git*
