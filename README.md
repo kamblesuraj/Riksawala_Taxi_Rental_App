@@ -11,3 +11,11 @@
  1. Clone Repo *https://github.com/surajkamblesk/Riksawala_Taxi_Rental_App.git*
  2. Create a Firebase project
  3. Put your API key in _Strings.xml_ file.
+ 
+# Contributing
+ Make Pull Request from a non master branch.
+ 
+ # License
+ *MIT License
+ Copyright (c) 2020 Suraj Kamble*
+ 
