@@ -1,4 +1,4 @@
-# Rikshawala android app (Uber Like android app)
+# Rikshawala Android App.
  Rikshawala android app is an uber like taxi booking app developed using android java  firebase realtime database , geofire and   google maps sdk.
 
 # Prerequisites
@@ -9,3 +9,5 @@
  
  # Setup
  1. Clone Repo *https://github.com/surajkamblesk/Riksawala_Taxi_Rental_App.git*
+ 2. Create a Firebase project
+ 3. Put your API key in _Strings.xml_ file.
