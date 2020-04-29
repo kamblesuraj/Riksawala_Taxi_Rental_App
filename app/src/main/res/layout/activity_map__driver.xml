@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/driver_map"
+
     android:orientation="vertical">
 
 
@@ -17,21 +17,22 @@
     </fragment>
 
 
-    <Button
-        android:id="@+id/driver_logout_btn"
+
+    <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="#FF5722"
-        android:padding="8dp"
-        android:text="LogOut"
-        android:textColor="#FC181717"
-        android:textColorHighlight="#F8093AEC"
-        android:textColorHint="#F80B5BE6"
-        android:textColorLink="#F7E90909" />
+        android:id="@+id/wokring_switch"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Driver_logout"
+        android:text="Logout"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        />
+
 
 
 </RelativeLayout>

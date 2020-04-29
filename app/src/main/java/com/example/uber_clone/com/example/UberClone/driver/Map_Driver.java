@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.uber_clone.R;
@@ -43,7 +44,8 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback
     LocationRequest mLocationRequest;
 
 
-    Button logout_btn;
+
+    Switch switch_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,7 +59,9 @@ public class Map_Driver extends FragmentActivity implements OnMapReadyCallback
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
 
-        logout_btn = findViewById(R.id.driver_logout_btn);
+        switch_btn = findViewById(R.id.workingSwitch);
+        Button logout_btn = findViewById(R.id.Driver_logout);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         assert mapFragment != null;
