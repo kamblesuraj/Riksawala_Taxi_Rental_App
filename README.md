@@ -1,8 +1,21 @@
-# Uber_Clone android app
-uber clone named rikshwala is mimicry of uber actual systems .
-# database 
- firebase realtime database
-  firebase authentication
-# Geofire for location related queries
+# Rikshawala Android App.
+ Rikshawala android app is an uber like taxi booking app developed using android java  firebase realtime database , geofire and   google maps sdk.
 
-
+# Prerequisites
+ 1. Android Studio Latest.
+ 2. Firebase Realtime Database.
+ 3. Android version > 5.
+ 4. Google Maps API Key.
+ 
+ # Setup
+ 1. Clone Repo *https://github.com/surajkamblesk/Riksawala_Taxi_Rental_App.git*
+ 2. Create a Firebase project
+ 3. Put your API key in _Strings.xml_ file.
+ 
+# Contributing
+ Make Pull Request from a non master branch.
+ 
+ # License
+ *MIT License
+ Copyright (c) 2020 Suraj Kamble*
+ 
